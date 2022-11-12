@@ -1,0 +1,125 @@
+let config = {
+	address: "localhost",
+	port: 8080,
+	basePath: "/",
+	ipWhitelist: ["127.0.0.1", "::ffff:127.0.0.1", "::1"],
+	useHttps: false, 		
+	httpsPrivateKey: "",
+	httpsCertificate: "",
+
+	language: "ko",
+	locale: "ko-KR",
+	logLevel: ["INFO", "LOG", "WARN", "ERROR"],
+	timeFormat: 24,
+	units: "metric",
+
+modules: [
+
+//-------------------
+{
+    module: 'MMM-CalendarExt3',
+    position: "fullscreen_above",
+    header: "Pinocchio Calendar",
+    config: {
+				mode: "month",
+				locale:"en-US",
+				//weather: true,
+				firstDayOfWeek: 0,
+				maxEventLines: 3,
+        updatesEvery: 30,
+        weeksInFuture: 5,
+        updateDelay: 60,
+				maxEventLines: 5,
+				refreshInterval: 60000
+        dateFormat:"yyyy.mm.dd",
+				calendarSet:["pinocchio calendar","대한민국 공휴일"],
+        
+    },  
+},
+{
+  module: "calendar",
+  config: {
+    calendars: [
+            {
+                name: "pinocchio calendar",
+                color: "green",
+                url: "https://calendar.google.com/calendar/ical/unist.pinocchio%40gmail.com/private-5e229f32595908c86401a0e3c30d11fa/basic.ics",
+                priority: 2
+            },
+            {
+                name: "대한민국 공휴일",
+                color: "red",
+                url: "http://www.google.com/calendar/ical/46hp89gvrbnnh1gpadt0a4hdr4%40group.calendar.google.com/public/basic.ics",
+                priority: 1
+            },
+        ],
+
+//---------------------
+		{
+			module: "weather",
+			position: "bottom_left",
+//			header: "Today",
+//			tempUnits : "metric",
+			config: {
+				weatherProvider: "openweathermap",
+				type: "current",
+				location: "Ulsan",
+				locationID: "1833747", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				apiKey: "50fcfcc05d84400e2c36414895d11143",
+				onlyTemp: true
+			}
+		},
+		{
+			module: "weather",
+			position: "bottom_bar",
+//			header: "Weather Forecast",
+//			tempUnits : "metric",
+				config: {
+				weatherProvider: "openweathermap",
+				type: "forecast",
+				location: "Ulsan",
+				locationID: "1833747", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				apiKey: "50fcfcc05d84400e2c36414895d11143",
+				onlyTemp: true,
+				colored: true
+			}
+		},
+		{
+			module: "newsfeed",
+			position: "top_bar",
+//			header: "News",
+			config: {
+				showPublishDate: false,
+				feeds: [
+					{
+						title: "Robot News",
+						url: "https://www.google.co.kr/alerts/feeds/09089757909642091546/17552035961756715879"
+					},
+					{
+						title: "AI News",					
+						url: "https://www.google.co.kr/alerts/feeds/09089757909642091546/5107094160631630762"
+					},
+					{
+						title: "UNIST News",
+						url: "https://www.google.co.kr/alerts/feeds/09089757909642091546/11444109244802886000"
+					},
+					{
+						title: "UNIST News",
+						url: "https://www.google.co.kr/alerts/feeds/09089757909642091546/11444109244802885735"
+					}
+				],
+				showSourceTitle: true,
+				showPublishDate: true,
+				broadcastNewsFeeds: true,
+				broadcastNewsUpdates: true,
+			}
+		},
+	]
+};
+
+
+
+
+
+/*************** DO NOT EDIT THE LINE BELOW ***************/
+if (typeof module !== "undefined") {module.exports = config;}
